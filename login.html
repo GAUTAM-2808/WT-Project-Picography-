@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Login Page</title>
+    <style>
+      /* Reset basic elements */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Background styling */
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff4e50, #f9d423);
+      }
+
+      /* Container for the login form */
+      .login-container {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 350px;
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      /* Styling for the input fields */
+      .input-box {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .input-box input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        background: #f0f0f0;
+        transition: 0.3s ease;
+      }
+
+      .input-box input:focus {
+        outline: none;
+        border-color: #ff4e50;
+        background: #fff;
+      }
+
+      .input-box label {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        color: #777;
+        font-size: 14px;
+        pointer-events: none;
+        transition: 0.3s;
+        transform: translateY(-50%);
+      }
+
+      .input-box input:focus + label,
+      .input-box input:not(:placeholder-shown) + label {
+        top: -10px;
+        left: 10px;
+        color: #ff4e50;
+        font-size: 12px;
+        background: white;
+        padding: 0 5px;
+      }
+
+      /* Submit button styling */
+      .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background: #ff4e50;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: #e53e40;
+      }
+
+      /* Additional interactive link */
+      .forgot-password {
+        display: block;
+        text-align: right;
+        margin-top: 10px;
+        color: #ff4e50;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .forgot-password:hover {
+        text-decoration: underline;
+      }
+
+      /* New signup link */
+      .signup-link {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #ff4e50;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .signup-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Subtle animation */
+      .login-container {
+        animation: fadeIn 1.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form action="#">
+        <div class="input-box">
+          <input type="text" required />
+          <label for="username">Username</label>
+        </div>
+        <div class="input-box">
+          <input type="password" required />
+          <label for="password">Password</label>
+        </div>
+        <button type="submit" class="submit-btn">Login</button>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+        <!-- Link to Signup Page -->
+        <a href="signup.html" class="signup-link"
+          >Don't have an account? Sign up</a
+        >
+      </form>
+    </div>
+  </body>
+</html>
