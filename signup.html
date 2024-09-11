@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Signup Page</title>
+    <title>Signup</title>
     <style>
       /* Reset basic elements */
       * {
@@ -19,7 +19,30 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #36d1dc, #5b86e5);
+        background: url("https://www.transparenttextures.com/patterns/paper.png")
+          repeat;
+        background-color: #fafafa; /* Very Light Gray */
+      }
+
+      /* Home button */
+      .home-button {
+        position: absolute; /* Allows for precise positioning */
+        top: 20px; /* Adjust the distance from the top */
+        right: 20px; /* Adjust the distance from the right */
+        padding: 10px 20px;
+        background-color: #6b8e79; /* Button background color */
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000; /* Ensures the button is above other content */
+      }
+
+      .home-button:hover {
+        background-color: #556b57; /* Darker shade on hover */
       }
 
       /* Container for the signup form */
@@ -128,6 +151,9 @@
     </style>
   </head>
   <body>
+    <!-- Home Button -->
+    <a href="index.html" class="home-button">Home</a>
+
     <div class="signup-container">
       <h2>Signup</h2>
       <form action="#">

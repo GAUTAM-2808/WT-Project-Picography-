@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Login Page</title>
+    <title>Login</title>
     <style>
       /* Reset basic elements */
       * {
@@ -19,7 +19,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #ff4e50, #f9d423);
+        background: url("https://www.transparenttextures.com/patterns/asfalt-dark.png"); /* Dark Asphalt pattern */
+        background-color: #36454f; /* Dark Gray color */
+      }
+
+      /* Home button */
+      .home-button {
+        position: absolute; /* Allows for precise positioning */
+        top: 20px; /* Adjust the distance from the top */
+        right: 20px; /* Adjust the distance from the right */
+        padding: 10px 20px;
+        background-color: #6b8e79; /* Button background color */
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000; /* Ensures the button is above other content */
+      }
+
+      .home-button:hover {
+        background-color: #556b57; /* Darker shade on hover */
       }
 
       /* Container for the login form */
@@ -142,6 +164,9 @@
     </style>
   </head>
   <body>
+    <!-- Home Button -->
+    <a href="index.html" class="home-button">Home</a>
+
     <div class="login-container">
       <h2>Login</h2>
       <form action="#">
