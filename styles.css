@@ -21,7 +21,7 @@ body {
     color: white;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 50%;
 }
 
 .login-btn:hover {
@@ -196,13 +196,6 @@ footer {
     font-size: 16px;
     line-height: 1.6;
 }
-
-/* Contact Us section aligned to the center */
-/* .footer-contact {
-    color: white;
-    width: 30%;
-    text-align: center;
-} */
 
 .footer-contact h4 {
     color: rgb(227, 137, 10);
