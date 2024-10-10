@@ -15,11 +15,13 @@
   }
   
   .login-btn {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 50%;
+text-decoration: none;
+color: white;
+padding: 10px 20px;
+font-size: 20px;
+background-color: #1a625d;
+border-radius: 50px;
+transition: 0.4s;
   }
   
   .login-btn:hover {
@@ -314,6 +316,47 @@
     background-color: #555;
   }
   
+/* Add some basic styling to the grid items and store section */
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-to-cart {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-cart:hover {
+  background-color: #555;
+}
+
+.store-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.store-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
   /* Exhibits Section */
   .exhibits-container {
     display: flex;
@@ -322,7 +365,38 @@
     padding: 20px;
   }
   
+  /* Add a custom background image to the exhibits container */
+.exhibits-container {
+  background-image: url('exhibit_bg.jpg'); /* replace with your image URL */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Add a smooth hover effect to the exhibit items */
+.exhibit-item {
+  transition: transform 0.3s ease-in-out; /* add a smooth transition effect */
+}
+
+.exhibit-item:hover {
+  transform: scale(1.05); /* scale up the exhibit item on hover */
+  box-shadow: 0 0 10px rgb(174, 169, 169); /* add a subtle shadow on hover */
+}
+
+/* Add proper alignment to the exhibit items */
+.exhibits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* adjust the number of columns as needed */
+  gap: 20px; /* adjust the gap between exhibit items as needed */
+}
+
+.exhibit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center the exhibit item content */
+}
+
   .exhibits-container h2 {
+    color: rgb(227, 137, 10);
     margin-bottom: 20px;
   }
   
@@ -339,7 +413,7 @@
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(248, 248, 248, 0.1);
   }
   
   .exhibit-item img {
@@ -349,10 +423,7 @@
     border-radius: 10px 10px 0 0;
   }
   
-  .exhibit-item h3 {
-    margin-top: 10px;
-  }
-  
-  .exhibit-item p {
+  .exhibit-item h3, .exhibit-item p {
+    color: whitesmoke;
     margin-top: 10px;
   }
