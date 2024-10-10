@@ -1,0 +1,120 @@
+<!-- payment.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        /* Add some basic styling to the payment form */
+        .payment-form {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .payment-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .payment-form input {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .payment-form button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .payment-form button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h2>Payment Gateway</h2>
+        <form id="payment-form">
+            <label for="card-element">Credit or debit card</label>
+            <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <button id="submit">Submit Payment</button>
+            <p id="payment-status"></p>
+        </form>
+    </div>
+    <script>
+        // Set your Stripe publishable key
+        const stripe = Stripe("YOUR_STRIPE_PUBLISHABLE_KEY");
+
+        // Create a Stripe payment intent
+        fetch("/create-payment-intent", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                amount: 1000, // amount in cents
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                const paymentIntent = data.paymentIntent;
+                const clientSecret = paymentIntent.client_secret;
+
+                // Create a Stripe payment method
+                const elements = stripe.elements();
+                const cardElement = elements.create("card");
+                cardElement.mount("#card-element");
+
+                // Handle form submission
+                const form = document.getElementById("payment-form");
+                form.addEventListener("submit", async (event) => {
+                    event.preventDefault();
+                    const { paymentMethod, error } = await stripe.createPaymentMethod({
+                        type: "card",
+                        card: cardElement,
+                    });
+                    if (error) {
+                        // Handle error
+                        console.error(error);
+                    } else {
+                        // Confirm the payment
+                        const { paymentIntent, error } = await stripe.confirmCardPayment(
+                            clientSecret,
+                            {
+                                payment_method: paymentMethod.id,
+                            }
+                        );
+                        if (error) {
+                            // Handle error
+                            console.error(error);
+                        } else {
+                            // Payment successful
+                            if (paymentIntent.status === "succeeded") {
+                                // Update the payment status
+                                document.getElementById("payment-status").textContent =
+                                    "Payment successful!";
+                                // Redirect to success page
+                                window.location.href = "/success";
+                            }
+                        }
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    </script>
+</body>
+</html>
