@@ -2,6 +2,7 @@
 
 // Get the cart container
 const cartContainer = document.getElementById('cart-container');
+const totalPriceElement = document.getElementById('total-price');
 
 // Initialize the cart
 let cart = [];
@@ -17,19 +18,17 @@ function addToCart(item) {
     // If item is not in cart, add it
     cart.push({ ...item, quantity: 1 });
   }
-  // Update cart container
   updateCartContainer();
 }
 
 // Function to remove item from cart
-function removeFromCart(item) {
+function removeFromCart(itemId) {
   // Find the item in the cart
-  const index = cart.findIndex((i) => i.id === item.id);
+  const index = cart.findIndex((i) => i.id === itemId);
   if (index !== -1) {
     // If item is found, remove it
     cart.splice(index, 1);
   }
-  // Update cart container
   updateCartContainer();
 }
 
@@ -49,7 +48,7 @@ function updateCartContainer() {
   });
   // Update the total price
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  document.getElementById('total-price').innerText = `Total: $${totalPrice.toFixed(2)}`;
+  totalPriceElement.innerText = `Total: $${totalPrice.toFixed(2)}`;
 }
 
 // Add event listeners to add to cart buttons
@@ -58,7 +57,7 @@ document.querySelectorAll('.add-to-cart').forEach((button) => {
     const item = {
       id: e.target.dataset.id,
       name: e.target.dataset.name,
-      price: e.target.dataset.price,
+      price: parseFloat(e.target.dataset.price),
     };
     addToCart(item);
   });
@@ -67,7 +66,7 @@ document.querySelectorAll('.add-to-cart').forEach((button) => {
 // Add event listeners to remove from cart buttons
 cartContainer.addEventListener('click', (e) => {
   if (e.target.classList.contains('remove-from-cart')) {
-    const item = cart.find((i) => i.id === e.target.dataset.id);
-    removeFromCart(item);
+    const itemId = e.target.dataset.id;
+    removeFromCart(itemId);
   }
 });

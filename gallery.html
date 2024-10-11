@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <style>
+    /* Add some basic styling to make it look good */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://picsum.photos/2000/1000?image=10'); /* dark background image */
+      background-size: cover;
+      background-position: center;
+    }
+    
+    h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+      padding: 20px;
+    }
+    
+    .grid-item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+      transition: transform 0.3s; /* add transition for hover effect */
+    }
+    
+    .grid-item:hover {
+      transform: scale(1.05); /* hover effect */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .grid-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    
+    .add-to-cart {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .add-to-cart:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+</head>
+<body>
+  <h2>Featured Photos</h2>
+  <div class="grid-container">
+    <!-- Loop through photos and display them in a grid -->
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/300?image=1" alt="Photo 1">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/300?image=1">Add to Cart</button>
+    </div>
+
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/301?image=2" alt="Photo 2">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/301?image=2">Add to Cart</button>
+    </div>
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/302?image=3" alt="Photo 3">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/302?image=3">Add to Cart</button>
+    </div>
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/303?image=4" alt="Photo 4">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/303?image=4">Add to Cart</button>
+    </div>
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/304?image=5" alt="Photo 5">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/304?image=5">Add to Cart</button>
+    </div>
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/305?image=6" alt="Photo 6">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/305?image=6">Add to Cart</button>
+    </div>
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/306?image=7" alt="Photo 7">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/306?image=7">Add to Cart</button>
+    </div>
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/307?image=8" alt="Photo 8">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/ 307?image=8">Add to Cart</button>
+    </div>
+    <div class="grid-item">
+      <img src="https://picsum.photos/200/308?image=9" alt="Photo 9">
+      <button class="add-to-cart" data-image-src="https://picsum.photos/200/308?image=9">Add to Cart</button>
+    </div>
+  </div>
+
+  <script>
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const storeImages = JSON.parse(localStorage.getItem('storeImages')) || [];
+
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const imageSrc = button.getAttribute('data-image-src');
+        storeImages.push(imageSrc);
+        localStorage.setItem('storeImages', JSON.stringify(storeImages));
+        window.location.href = 'store.html';
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -2,17 +2,6 @@
 const gridItems = document.querySelectorAll('.grid-item');
 const storeLink = document.getElementById('store-link');
 
-// Add event listeners to the add to cart buttons
-gridItems.forEach((gridItem) => {
-  const addToCartButton = gridItem.querySelector('.add-to-cart');
-  addToCartButton.addEventListener('click', () => {
-    // Get the image URL and add it to local storage
-    const imageUrl = gridItem.querySelector('img').src;
-    addItemToLocalStorage(imageUrl);
-    window.location.href = 'store.html';
-  });
-});
-
 // Function to add item to local storage
 function addItemToLocalStorage(imageUrl) {
   let storedItems = localStorage.getItem('storeItems');
@@ -25,7 +14,16 @@ function addItemToLocalStorage(imageUrl) {
   localStorage.setItem('storeItems', JSON.stringify(storedItems));
 }
 
-// Add event listener to the store link
+// Add event listeners to the add to cart buttons and store link
+gridItems.forEach((gridItem) => {
+  const addToCartButton = gridItem.querySelector('.add-to-cart');
+  addToCartButton.addEventListener('click', () => {
+    const imageUrl = gridItem.querySelector('img').src;
+    addItemToLocalStorage(imageUrl);
+    window.location.href = 'store.html';
+  });
+});
+
 storeLink.addEventListener('click', () => {
   window.location.href = 'store.html';
 });

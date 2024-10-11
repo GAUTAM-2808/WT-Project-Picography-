@@ -4,12 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Store</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
+    .store-section {
+      background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+      background-size: 100% 100vh;
+      background-attachment: fixed;
+      height: 100vh;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0; /* To make sure it's behind the heading */
+    }
+
+    .store-heading {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 48px;
+      font-weight: bold;
+      text-align: center;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      z-index: 1; /* To make sure it's on top of the gradient */
+    }
+
     .store-items {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
+
     .store-item {
       margin: 20px;
       width: 200px;
@@ -21,12 +50,14 @@
       flex-direction: column;
       align-items: center;
     }
+
     .store-item img {
       width: 100%;
       height: 150px;
       object-fit: cover;
       border-radius: 10px;
     }
+
     .buy-now {
       background-color: #4CAF50;
       color: #fff;
@@ -35,32 +66,39 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
+    .cart-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      display: none;
+    }
+
+    .cart-items {
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>My Store</h1>
+  <h1 class="store-heading">My Store</h1>
+  <div class="store-section">
+    <!-- This section will be behind the heading -->
+  </div>
   <div class="store-items">
     <!-- Items will be displayed here -->
   </div>
+  <div class="cart-container">
+    <h2>Cart</h2>
+    <div class="cart-items">
+      <!-- Cart items will be displayed here -->
+    </div>
+    <button class="buy-now">Buy Now</button>
+  </div>
 
-  <script>
-    const storedItems = localStorage.getItem('storeItems');
-    if (storedItems) {
-      storedItems = JSON.parse(storedItems);
-      storedItems.forEach((imageUrl) => {
-        const storeItem = document.createElement('div');
-        storeItem.className = 'store-item';
-        const img = document.createElement('img');
-        img.src = imageUrl;
-        img.alt = 'Image';
-        storeItem.appendChild(img);
-        const buyNowButton = document.createElement('button');
-        buyNowButton.className = 'buy-now';
-        buyNowButton.textContent = 'Buy Now';
-        storeItem.appendChild(buyNowButton);
-        document.querySelector('.store-items').appendChild(storeItem);
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -69,8 +69,7 @@
         })
             .then((response) => response.json())
             .then((data) => {
-                const paymentIntent = data.paymentIntent;
-                const clientSecret = paymentIntent.client_secret;
+                const clientSecret = data.clientSecret;
 
                 // Create a Stripe payment method
                 const elements = stripe.elements();
@@ -90,24 +89,28 @@
                         console.error(error);
                     } else {
                         // Confirm the payment
-                        const { paymentIntent, error } = await stripe.confirmCardPayment(
-                            clientSecret,
-                            {
-                                payment_method: paymentMethod.id,
+                        try {
+                            const { paymentIntent, error } = await stripe.confirmCardPayment(
+                                clientSecret,
+                                {
+                                    payment_method: paymentMethod.id,
+                                }
+                            );
+                            if (error) {
+                                // Handle error
+                                console.error(error);
+                            } else {
+                                // Payment successful
+                                if (paymentIntent.status === "succeeded") {
+                                    // Update the payment status
+                                    document.getElementById("payment-status").textContent =
+                                        "Payment successful!";
+                                    // Redirect to success page
+                                    window.location.href = "/success";
+                                }
                             }
-                        );
-                        if (error) {
-                            // Handle error
+                        } catch (error) {
                             console.error(error);
-                        } else {
-                            // Payment successful
-                            if (paymentIntent.status === "succeeded") {
-                                // Update the payment status
-                                document.getElementById("payment-status").textContent =
-                                    "Payment successful!";
-                                // Redirect to success page
-                                window.location.href = "/success";
-                            }
                         }
                     }
                 });
