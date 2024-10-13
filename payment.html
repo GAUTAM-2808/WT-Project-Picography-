@@ -1,123 +1,57 @@
-<!-- payment.html -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Gateway</title>
-    <script src="https://js.stripe.com/v3/"></script>
-    <style>
-        /* Add some basic styling to the payment form */
-        .payment-form {
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .payment-form label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        .payment-form input {
-            width: 100%;
-            height: 40px;
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-        .payment-form button[type="submit"] {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .payment-form button[type="submit"]:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+    <title>Payment Form</title>
 </head>
 <body>
-    <div class="payment-form">
-        <h2>Payment Gateway</h2>
-        <form id="payment-form">
-            <label for="card-element">Credit or debit card</label>
-            <div id="card-element">
-                <!-- A Stripe Element will be inserted here. -->
-            </div>
-            <button id="submit">Submit Payment</button>
-            <p id="payment-status"></p>
-        </form>
-    </div>
-    <script>
-        // Set your Stripe publishable key
-        const stripe = Stripe("YOUR_STRIPE_PUBLISHABLE_KEY");
+    <form id="payment-form" action="payment.php" method="post">
+       <input type="text" name="name"><br>
+       <input type="email" name="email"><br>
+       <input type="tel" name="mobile"><br>
 
-        // Create a Stripe payment intent
-        fetch("/create-payment-intent", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                amount: 1000, // amount in cents
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                const clientSecret = data.clientSecret;
+        <button id="submit" type="submit">Pay</button>
+    </form>
 
-                // Create a Stripe payment method
-                const elements = stripe.elements();
-                const cardElement = elements.create("card");
-                cardElement.mount("#card-element");
+    <!-- <script>
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            // Prevent default form submission
+            event.preventDefault();
 
-                // Handle form submission
-                const form = document.getElementById("payment-form");
-                form.addEventListener("submit", async (event) => {
-                    event.preventDefault();
-                    const { paymentMethod, error } = await stripe.createPaymentMethod({
-                        type: "card",
-                        card: cardElement,
-                    });
-                    if (error) {
-                        // Handle error
-                        console.error(error);
-                    } else {
-                        // Confirm the payment
-                        try {
-                            const { paymentIntent, error } = await stripe.confirmCardPayment(
-                                clientSecret,
-                                {
-                                    payment_method: paymentMethod.id,
-                                }
-                            );
-                            if (error) {
-                                // Handle error
-                                console.error(error);
-                            } else {
-                                // Payment successful
-                                if (paymentIntent.status === "succeeded") {
-                                    // Update the payment status
-                                    document.getElementById("payment-status").textContent =
-                                        "Payment successful!";
-                                    // Redirect to success page
-                                    window.location.href = "/success";
-                                }
-                            }
-                        } catch (error) {
-                            console.error(error);
-                        }
-                    }
-                });
+            // Get form data
+            var amount = document.getElementById('amount').value;
+            var currency = document.getElementById('currency').value;
+
+            console.log("Form submitted with amount:", amount, "currency:", currency); // Log form data
+
+            // Send request to payment.php using fetch
+            fetch('payment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    currency: currency,
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from payment.php:', data); // Log the response data
+                if (data.paymentUrl) {
+                    window.location.href = data.paymentUrl; // Redirect to the payment URL
+                } else {
+                    console.error('Error:', data.error);
+                }
             })
             .catch((error) => {
-                console.error(error);
+                console.error('Error:', error);
             });
-    </script>
+        });
+    </script> -->
 </body>
 </html>

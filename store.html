@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Store</title>
+  <script src="script.js"></script>
   <link rel="stylesheet" href="styles.css">
+
+  
+
   <style>
     .store-section {
       background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
@@ -85,20 +89,49 @@
 </head>
 <body>
   <h1 class="store-heading">My Store</h1>
-  <div class="store-section">
-    <!-- This section will be behind the heading -->
-  </div>
-  <div class="store-items">
-    <!-- Items will be displayed here -->
-  </div>
-  <div class="cart-container">
-    <h2>Cart</h2>
-    <div class="cart-items">
-      <!-- Cart items will be displayed here -->
-    </div>
-    <button class="buy-now">Buy Now</button>
-  </div>
+  <div class="store-section"> </div>
+  <div id="store-gallery" class="store-items"></div>
 
-  <script src="script.js"></script>
+   <script>
+    function displaySelectedImage() {
+      const selectedItem = JSON.parse(localStorage.getItem('selectedItem'));
+
+      if (selectedItem && selectedItem.imageUrl) {
+        const storeGallery = document.getElementById('store-gallery');
+        storeGallery.innerHTML = '';
+
+        const storeItemDiv = document.createElement('div');
+        storeItemDiv.classList.add('store-item');
+
+        const img = document.createElement('img');
+        img.src = selectedItem.imageUrl;
+        img.alt = 'Selected Item Image';
+        img.style.width = '150px';
+        img.style.height = '150px';
+        img.style.borderRadius = '10px';
+
+        const buyNowButton = document.createElement('button');
+        buyNowButton.classList.add('buy-now');
+        buyNowButton.innerText = 'Buy Now';
+
+        // Add an event listener to the "Buy Now" button
+        buyNowButton.addEventListener('click', () => {
+          // Redirect to the payment page with the selected item as a query parameter
+          window.location.href = `payment.html?product=${encodeURIComponent(selectedItem.imageUrl)}`;
+        });
+
+        storeItemDiv.appendChild(img);
+        storeItemDiv.appendChild(buyNowButton);
+
+        storeGallery.appendChild(storeItemDiv);
+      }
+    }
+
+    window.addEventListener('load', displaySelectedImage);
+  </script>
+  
+  
+
+  </div> 
 </body>
 </html>
