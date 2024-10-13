@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Form</title>
+</head>
+<body>
+    <form id="payment-form" action="payment.php" method="post">
+       <input type="text" name="name"><br>
+       <input type="email" name="email"><br>
+       <input type="tel" name="mobile"><br>
+
+        <button id="submit" type="submit">Pay</button>
+    </form>
+
+    <!-- <script>
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+
+            // Get form data
+            var amount = document.getElementById('amount').value;
+            var currency = document.getElementById('currency').value;
+
+            console.log("Form submitted with amount:", amount, "currency:", currency); // Log form data
+
+            // Send request to payment.php using fetch
+            fetch('payment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    currency: currency,
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from payment.php:', data); // Log the response data
+                if (data.paymentUrl) {
+                    window.location.href = data.paymentUrl; // Redirect to the payment URL
+                } else {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script> -->
+</body>
+</html>

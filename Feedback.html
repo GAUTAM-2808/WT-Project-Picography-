@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      .feedback-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .feedback-container h2 {
+        margin: 0 0 20px;
+        color: #333;
+      }
+
+      .feedback-form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .feedback-form label {
+        margin-bottom: 5px;
+        color: #555;
+      }
+
+      .feedback-form input,
+      .feedback-form textarea {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      .feedback-form textarea {
+        resize: vertical;
+      }
+
+      .feedback-form button {
+        padding: 10px 20px;
+        background: #6b8e79;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .feedback-form button:hover {
+        background: #556b57;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="feedback-container">
+      <h2>Feedback Form</h2>
+      <form action="/submit-feedback" method="post" class="feedback-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="feedback">Your Feedback:</label>
+        <textarea id="feedback" name="feedback" rows="5" required></textarea>
+
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevents default form submission
+          // Redirect to homepage after "submission"
+          window.location.href = "index.html";
+        });
+    </script>
+  </body>
+</html>
