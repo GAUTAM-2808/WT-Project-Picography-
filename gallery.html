@@ -5,49 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery</title>
   <style>
-    /* Add some basic styling to make it look good */
+    /* General styling */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-image: url('https://picsum.photos/2000/1000?image=10'); /* dark background image */
+      background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
       background-size: cover;
-      background-position: center;
+      background-attachment: fixed;
     }
-    
+
     h2 {
       text-align: center;
       color: #fff;
-      margin-bottom: 20px;
+      margin: 40px 0;
+      font-size: 48px;
+      font-family: 'Poppins', sans-serif;
     }
-    
+
     .grid-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-gap: 10px;
+      grid-gap: 20px;
       padding: 20px;
+      justify-content: center;
     }
-    
+
     .grid-item {
       background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 20px;
       text-align: center;
-      transition: transform 0.3s; /* add transition for hover effect */
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
     }
-    
+
     .grid-item:hover {
-      transform: scale(1.05); /* hover effect */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     }
-    
+
     .grid-item img {
       width: 100%;
       height: 200px;
       object-fit: cover;
       border-radius: 10px;
+      margin-bottom: 15px;
     }
-    
+
+    .price {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
     .add-to-cart {
       background-color: #4CAF50;
       color: #fff;
@@ -57,74 +68,90 @@
       cursor: pointer;
       border-radius: 5px;
     }
-    
+
     .add-to-cart:hover {
       background-color: #3e8e41;
     }
   </style>
 </head>
 <body>
+
   <h2>Featured Photos</h2>
+
   <div class="grid-container">
     <!-- Loop through photos and display them in a grid -->
     <div class="grid-item">
       <img src="pic-1.jpg" alt="Photo 1">
-      <button class="add-to-cart" data-image-src="pic-1.jpg">Add to Cart</button>
+      <div class="price">₹949</div>
+      <button class="add-to-cart" data-image-src="pic-1.jpg" data-price="949">Add to Cart</button>
     </div>
 
     <div class="grid-item">
       <img src="pic-3.jpg" alt="Photo 2">
-      <button class="add-to-cart" data-image-src="pic-3.jpg">Add to Cart</button>
+      <div class="price">₹749</div>
+      <button class="add-to-cart" data-image-src="pic-3.jpg" data-price="749">Add to Cart</button>
     </div>
+
     <div class="grid-item">
       <img src="pic-4.jpg" alt="Photo 3">
-      <button class="add-to-cart" data-image-src="pic-4.jpg">Add to Cart</button>
+      <div class="price">₹499</div>
+      <button class="add-to-cart" data-image-src="pic-4.jpg" data-price="499">Add to Cart</button>
     </div>
+
     <div class="grid-item">
       <img src="pic-5.jpg" alt="Photo 4">
-      <button class="add-to-cart" data-image-src="pic-5.jpg">Add to Cart</button>
+      <div class="price">₹649</div>
+      <button class="add-to-cart" data-image-src="pic-5.jpg" data-price="649">Add to Cart</button>
     </div>
+
     <div class="grid-item">
       <img src="pic-6.jpg" alt="Photo 5">
-      <button class="add-to-cart" data-image-src="pic-6.jpg">Add to Cart</button>
+      <div class="price">₹249</div>
+      <button class="add-to-cart" data-image-src="pic-6.jpg" data-price="249">Add to Cart</button>
     </div>
+
     <div class="grid-item">
       <img src="pic-7.jpg" alt="Photo 6">
-      <button class="add-to-cart" data-image-src="pic-7.jpg">Add to Cart</button>
+      <div class="price">₹549</div>
+      <button class="add-to-cart" data-image-src="pic-7.jpg" data-price="549">Add to Cart</button>
     </div>
+
     <div class="grid-item">
       <img src="pic-8.jpg" alt="Photo 7">
-      <button class="add-to-cart" data-image-src="pic-8.jpg">Add to Cart</button>
+      <div class="price">₹999</div>
+      <button class="add-to-cart" data-image-src="pic-8.jpg" data-price="999">Add to Cart</button>
     </div>
+
     <div class="grid-item">
       <img src="pic-9.jpg" alt="Photo 8">
-      <button class="add-to-cart" data-image-src="pic-9.jpg">Add to Cart</button>
+      <div class="price">₹899</div>
+      <button class="add-to-cart" data-image-src="pic-9.jpg" data-price="899">Add to Cart</button>
     </div>
+
     <div class="grid-item">
       <img src="pic-2.jpg" alt="Photo 9">
-      <button class="add-to-cart" data-image-src="pic-2">Add to Cart</button>
+      <div class="price">₹1099</div>
+      <button class="add-to-cart" data-image-src="pic-2.jpg" data-price="1099">Add to Cart</button>
     </div>
   </div>
 
   <script>
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    
+
     addToCartButtons.forEach(button => {
       button.addEventListener('click', () => {
         const imageSrc = button.getAttribute('data-image-src');
-        
-        // Store the selected image (only the latest clicked image) in localStorage
-        const selectedItem = { imageUrl: imageSrc };
+        const price = button.getAttribute('data-price');
+
+        // Store the selected image and price in localStorage
+        const selectedItem = { imageUrl: imageSrc, price: price };
         localStorage.setItem('selectedItem', JSON.stringify(selectedItem));
-        
+
         // Redirect to store.html to view the selected image
         window.location.href = 'store.html';
       });
     });
   </script>
   
-  
-  
-
 </body>
 </html>

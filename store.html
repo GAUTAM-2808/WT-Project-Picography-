@@ -4,64 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Store</title>
-  <script src="script.js"></script>
-  <link rel="stylesheet" href="styles.css">
-
-  
-
   <style>
+    /* Background section */
     .store-section {
       background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
-      background-size: 100% 100vh;
+      background-size: cover;
       background-attachment: fixed;
       height: 100vh;
       width: 100%;
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 0; /* To make sure it's behind the heading */
+      z-index: 0;
     }
-
+  
+    /* Store heading */
     .store-heading {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
+      z-index: 2;
       font-size: 48px;
       font-weight: bold;
       text-align: center;
       color: #fff;
       font-family: 'Poppins', sans-serif;
-      z-index: 1; /* To make sure it's on top of the gradient */
+      padding-top: 10px;   /* Reduced padding to move the heading up */
+      margin-bottom: 10px; /* Reduced margin to decrease space below the heading */
     }
-
+  
+    /* Store items container */
     .store-items {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       position: relative;
       z-index: 1;
+      padding: 20px;
+      margin-top: 20px;  /* Reduced margin to decrease space between heading and items */
     }
-
+  
     .store-item {
-      margin: 20px;
-      width: 200px;
-      height: 200px;
+      margin: 10px;       /* Reduced margin to make items closer to each other */
+      width: 250px;
+      height: auto;
       border: 1px solid #ccc;
       border-radius: 10px;
       padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      background-color: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
-
+  
     .store-item img {
       width: 100%;
-      height: 150px;
+      height: 200px;
       object-fit: cover;
       border-radius: 10px;
+      margin-bottom: 10px; /* Reduced margin between the image and the button */
     }
-
+  
     .buy-now {
       background-color: #4CAF50;
       color: #fff;
@@ -69,36 +71,32 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-
-    .cart-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      padding: 20px;
-      border: 1px solid #ddd;
-      display: none;
+  
+    .buy-now:hover {
+      background-color: #3e8e41;
     }
-
-    .cart-items {
-      margin-bottom: 20px;
+  
+    .price {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px; /* Reduced space between the price and the "Buy Now" button */
     }
-  </style>
+  </style>  
 </head>
 <body>
   <h1 class="store-heading">My Store</h1>
-  <div class="store-section"> </div>
+  <div class="store-section"></div>
   <div id="store-gallery" class="store-items"></div>
 
-   <script>
+  <script>
     function displaySelectedImage() {
       const selectedItem = JSON.parse(localStorage.getItem('selectedItem'));
 
-      if (selectedItem && selectedItem.imageUrl) {
+      if (selectedItem && selectedItem.imageUrl && selectedItem.price) {
         const storeGallery = document.getElementById('store-gallery');
-        storeGallery.innerHTML = '';
+        storeGallery.innerHTML = ''; // Clear any previous content
 
         const storeItemDiv = document.createElement('div');
         storeItemDiv.classList.add('store-item');
@@ -106,9 +104,10 @@
         const img = document.createElement('img');
         img.src = selectedItem.imageUrl;
         img.alt = 'Selected Item Image';
-        img.style.width = '150px';
-        img.style.height = '150px';
-        img.style.borderRadius = '10px';
+
+        const priceDiv = document.createElement('div');
+        priceDiv.classList.add('price');
+        priceDiv.innerText = `Price: ₹${selectedItem.price}`; // Display the price
 
         const buyNowButton = document.createElement('button');
         buyNowButton.classList.add('buy-now');
@@ -117,21 +116,22 @@
         // Add an event listener to the "Buy Now" button
         buyNowButton.addEventListener('click', () => {
           // Redirect to the payment page with the selected item as a query parameter
-          window.location.href = `payment.html?product=${encodeURIComponent(selectedItem.imageUrl)}`;
+          window.location.href = `payment.html?product=${encodeURIComponent(selectedItem.imageUrl)}&price=${encodeURIComponent(selectedItem.price)}`;
         });
 
         storeItemDiv.appendChild(img);
+        storeItemDiv.appendChild(priceDiv); // Append the price
         storeItemDiv.appendChild(buyNowButton);
 
         storeGallery.appendChild(storeItemDiv);
+      } else {
+        // Display a message if no item is selected
+        const storeGallery = document.getElementById('store-gallery');
+        storeGallery.innerHTML = '<p style="color: white;">No item selected. Please go back and add items to the cart.</p>';
       }
     }
 
     window.addEventListener('load', displaySelectedImage);
   </script>
-  
-  
-
-  </div> 
 </body>
 </html>
